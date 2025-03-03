@@ -9,6 +9,7 @@ import {
     selectMaxValue,
     selectMinValue
 } from "../../model/counter/counterSelectors.ts";
+import s from '../../app/App.module.css'
 
 export const Calculator = () => {
     const dispatch = useAppDispatch();
@@ -37,14 +38,14 @@ export const Calculator = () => {
     const progressValue = editMode ? 0 : errorMode ? 0 : count
 
     return (
-        <div className={'table'}>
+        <div className={s.table}>
             <Screen/>
             <progress
-                className={'progress'}
+                className={s.progress}
                 max={maxValue}
                 value={progressValue}>
             </progress>
-            <div className={'buttons'}>
+            <div className={s.buttons}>
                 <Button name={'inc'}
                         disabled={isButtonIncDisabled}
                         onclick={onClickIncHandler}/>

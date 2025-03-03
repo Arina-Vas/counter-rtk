@@ -1,12 +1,13 @@
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
 import {selectCount, selectEditMode, selectErrorMode, selectMaxValue} from "../../model/counter/counterSelectors.ts";
+import s from '../../app/App.module.css'
 
 export const Screen = () => {
     const maxValue = useAppSelector(selectMaxValue);
     const count = useAppSelector(selectCount);
     const errorMode = useAppSelector(selectErrorMode);
     const editMode = useAppSelector(selectEditMode);
-    const className = `screen ${errorMode ? 'error' : ''}`
+    const className = `${s.screen} ${errorMode ? s.error : ''}`
 
     return (
         <div className={className}>
@@ -15,7 +16,7 @@ export const Screen = () => {
                         (<div>Enter values and press 'set'</div>)
                       :
                         (<>
-                            <div className={'max'}>Max value: {maxValue} </div>
+                            <div className={s.max}>Max value: {maxValue} </div>
                             <div>{count}</div>
                         </>)
             }

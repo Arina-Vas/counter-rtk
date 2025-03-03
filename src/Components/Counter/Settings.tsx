@@ -1,4 +1,5 @@
 import {Button} from "../Button.tsx";
+import s from '../../app/App.module.css'
 import {ValueForm} from "../ValueForm.tsx";
 import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
@@ -71,15 +72,15 @@ export const Settings = () => {
     const buttonIsDisabled = errorType !== '' || !editMode
 
     const getClassName = (valueType: 'Min' | 'Max') => {
-        return (errorType === `error${valueType}` || errorType === 'error') ? 'errorBlock' : '';
+        return (errorType === `error${valueType}` || errorType === 'error') ? s.errorBlock : '';
     }
 
     const classNameMax = getClassName('Max')
     const classNameMin = getClassName('Min')
 
     return (
-        <div className={'table'}>
-            <div className={'screen'}>
+        <div className={s.table}>
+            <div className={s.screen}>
                 <ValueForm
                     className={classNameMax}
                     value={newMaxValue}
@@ -93,7 +94,7 @@ export const Settings = () => {
                     onChange={onChangeMinValueHandler}
                 />
             </div>
-            <div className={'buttons'}>
+            <div className={s.buttons}>
                 <Button
                     name={'set'}
                     disabled={buttonIsDisabled}

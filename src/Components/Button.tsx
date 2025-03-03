@@ -1,3 +1,5 @@
+import s from '../app/App.module.css'
+
 type ButtonType = {
     name: string,
     disabled?: boolean,
@@ -5,7 +7,8 @@ type ButtonType = {
 }
 
 export const Button = ({name, disabled, onclick}: ButtonType) => {
-    const className = `button ${disabled ? 'dis' : 'active'}`
+    const className = `${s.button} ${disabled ? s.dis : s.active}`
+
     return (
         <button disabled={disabled} className={className} onClick={onclick}>
             {name}

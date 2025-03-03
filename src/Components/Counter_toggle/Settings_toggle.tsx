@@ -1,4 +1,5 @@
 import {Button} from "../Button.tsx";
+import s from '../../app/App.module.css';
 import {ValueForm} from "../ValueForm.tsx";
 import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
@@ -57,7 +58,7 @@ export const Settings_toggle = () => {
     }
 
     const getClassName = (valueType: 'Min' | 'Max') => {
-        return (errorType === `error${valueType}` || errorType === 'error') ? 'errorBlock' : '';
+        return (errorType === `error${valueType}` || errorType === 'error') ? s.errorBlock : ' ';
     }
 
     const classNameMax = getClassName('Max')
@@ -65,8 +66,8 @@ export const Settings_toggle = () => {
 
     const buttonIsDisabled = errorType !== ''
     return (
-        <div className={'table'}>
-            <div className={'screen'}>
+        <div className={s.table}>
+            <div className={s.screen}>
                 {(errorType !== '') ? <div>Incorrect value</div> : <div>Enter values and press 'set'</div>}
                 <ValueForm
                     className={classNameMax}
@@ -81,7 +82,7 @@ export const Settings_toggle = () => {
                     onChange={onChangeMinValueHandler}
                 />
             </div>
-            <div className={'buttons'}>
+            <div className={s.buttons}>
                 <Button
                     name={'set'}
                     disabled={buttonIsDisabled}

@@ -1,4 +1,5 @@
 import {Button} from "../Button.tsx";
+import s from '../../app/App.module.css';
 import {Settings_toggle} from "./Settings_toggle.tsx";
 import {Screen_toggle} from "./Screen_toggle.tsx";
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
@@ -42,15 +43,15 @@ export const Counter_toggle = () => {
         settingsMode ?
             <Settings_toggle/>
             :
-            <div className={'table'}>
+            <div className={s.table}>
                 <Screen_toggle/>
                 <progress
-                    className={'progress'}
+                    className={s.progress}
                     max={maxValue}
                     value={count}>
 
                 </progress>
-                <div className={'buttons'}>
+                <div className={s.buttons}>
                     <Button
                         name={'inc'}
                         disabled={IsButtonIncDisabled}

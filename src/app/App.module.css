@@ -85,12 +85,12 @@ h1 {
     transition: ease-in-out 0.3s;
 }
 
-button.active:hover {
+.button .active:hover {
     border: none;
     transform: scale(1.1);
 }
 
-button:focus, button:focus-visible {
+.button:focus, .button:focus-visible {
     outline: 3px auto #126560;
 }
 
