@@ -1,10 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {countReducer} from "../model/count-reducer.ts";
+import {counterReducer} from "../model/counter/counter-reducer.ts";
+import {counterToggleReducer} from "../model/counterToggle/counterToggle-reducer.ts";
 
 
 // объединение reducer'ов с помощью combineReducers
 const rootReducer = combineReducers({
-   counter: countReducer,
+    counter: counterReducer,
+    counterToggle: counterToggleReducer,
 })
 
 // создание store

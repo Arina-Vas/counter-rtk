@@ -1,5 +1,5 @@
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectCount, selectEditMode, selectErrorMode, selectMaxValue} from "../../model/counterSelectors.ts";
+import {selectCount, selectEditMode, selectErrorMode, selectMaxValue} from "../../model/counter/counterSelectors.ts";
 
 export const Screen = () => {
     const maxValue = useAppSelector(selectMaxValue);

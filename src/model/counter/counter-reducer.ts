@@ -16,7 +16,7 @@ export const changeErrorModeAC = createAction<{ error: boolean }>('counter/chang
 export const changeEditModeAC = createAction<{ editMode: boolean }>('counter/changeEditingMode')
 
 
-export const countReducer = createReducer(initialState, (builder) => {
+export const counterReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(changeMaxValueAC, (state, action) => {
             state.maxValue = action.payload.maxValue

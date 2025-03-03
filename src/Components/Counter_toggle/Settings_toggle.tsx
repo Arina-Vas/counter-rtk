@@ -1,91 +1,90 @@
 import {Button} from "../Button.tsx";
 import {ValueForm} from "../ValueForm.tsx";
 import {useEffect, useState} from "react";
-import {KeyValueType} from "../../app/App.tsx";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
+import {selectMaxValueToggle, selectMinValueToggle} from "../../model/counterToggle/counterToggleSelectors.ts";
+import {
+    changeMaxValueToggleAC, changeMinValueToggleAC,
+    changeSettingsModeAC,
+    setCountValueToggleAC
+} from "../../model/counterToggle/counterToggle-reducer.ts";
 
 type ErrorType = 'error' | 'errorMax' | 'errorMin' | ''
 
-type Props = {
-    minValue: number
-    maxValue: number
-    setValuesOnClick: (payload: { key: KeyValueType, num: number }) => void
-    setSettingMode: (isSettingMode: boolean) => void
-};
-export const Settings_toggle = ({
-                                    maxValue,
-                                    minValue,
-                                    setValuesOnClick,
-                                    setSettingMode
-                                }: Props) => {
+export const Settings_toggle = () => {
+
+    const minValue = useAppSelector(selectMinValueToggle);
+    const maxValue = useAppSelector(selectMaxValueToggle);
+    const dispatch = useAppDispatch();
 
     const [errorType, setErrorType] = useState<ErrorType>('')
-    const [values, setValues] = useState({min: minValue, max: maxValue})
+    const [newMinValueToggle, setNewMinValueToggle] = useState<number>(minValue)
+    const [newMaxValueToggle, setNewMaxValueToggle] = useState<number>(maxValue)
 
-    const valueArr: { key: KeyValueType, num: number }[] = [
-        {
-            key: 'minValue',
-            num: Math.round(values.min)
-        },
-        {
-            key: 'maxValue',
-            num: Math.round(values.max)
-        },
-        {
-            key: 'count',
-            num: Math.round(values.min)
-        }
-    ]
 
     useEffect(() => {
+        const regex = /\./
         switch (true) {
-            case ((values.min < 0 && values.max < 0) || (values.max <= values.min)):
+            case ((newMinValueToggle < 0 && newMaxValueToggle < 0) || (newMaxValueToggle <= newMinValueToggle)):
                 setErrorType('error');
                 break;
-            case (values.max < 0):
+            case (newMaxValueToggle < 0 || regex.test(String(newMaxValueToggle))):
                 setErrorType('errorMax');
                 break;
-            case (values.min < 0):
+            case (newMinValueToggle < 0 || regex.test(String(newMinValueToggle))):
                 setErrorType('errorMin');
                 break;
             default:
                 setErrorType('');
                 break;
         }
-    }, [values.min, values.max])
+    }, [newMinValueToggle, newMaxValueToggle])
 
-
-    const getValueHandler = (key: 'min' | 'max', num: number) => {
-        setValues(prevState => ({...prevState, [key]: num}))
+    const onChangeMaxValueHandler = (num: number) => {
+        setNewMaxValueToggle(num)
     }
 
+    const onChangeMinValueHandler = (num: number) => {
+        setNewMinValueToggle(num)
+    }
 
     const setValuesHandler = () => {
-        valueArr.forEach(({key, num}) => setValuesOnClick({key, num}))
-        setSettingMode(false)
+        dispatch(changeMaxValueToggleAC({maxValue: newMaxValueToggle}))
+        dispatch(changeMinValueToggleAC({minValue: newMinValueToggle}))
+        dispatch(setCountValueToggleAC({count: newMinValueToggle}))
+        dispatch(changeSettingsModeAC({isSet: false}))
     }
 
+    const getClassName = (valueType: 'Min' | 'Max') => {
+        return (errorType === `error${valueType}` || errorType === 'error') ? 'errorBlock' : '';
+    }
 
+    const classNameMax = getClassName('Max')
+    const classNameMin = getClassName('Min')
+
+    const buttonIsDisabled = errorType !== ''
     return (
         <div className={'table'}>
             <div className={'screen'}>
                 {(errorType !== '') ? <div>Incorrect value</div> : <div>Enter values and press 'set'</div>}
                 <ValueForm
-                    className={`${(errorType === 'errorMax' || errorType === 'error') ? 'errorBlock' : ''}`}
-                    value={values.max}
+                    className={classNameMax}
+                    value={newMaxValueToggle}
                     title={'Max value toggle: '}
-                    onChange={(num) => getValueHandler('max', num)}
+                    onChange={onChangeMaxValueHandler}
                 />
                 <ValueForm
-                    className={`${(errorType === 'errorMin' || errorType === 'error') ? 'errorBlock' : ''}`}
-                    value={values.min}
+                    className={classNameMin}
+                    value={newMinValueToggle}
                     title={'Min value toggle: '}
-                    onChange={(num) => getValueHandler('min', num)}
+                    onChange={onChangeMinValueHandler}
                 />
             </div>
             <div className={'buttons'}>
                 <Button
                     name={'set'}
-                    disabled={errorType !== ''}
+                    disabled={buttonIsDisabled}
                     onclick={setValuesHandler}/>
             </div>
         </div>

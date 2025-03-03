@@ -1,47 +1,38 @@
 import {Button} from "../Button.tsx";
-import {useEffect, useState} from "react";
 import {Settings_toggle} from "./Settings_toggle.tsx";
-import {KeyValueType} from "../../app/App.tsx";
 import {Screen_toggle} from "./Screen_toggle.tsx";
+import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import {
+    selectCountToggle,
+    selectMaxValueToggle, selectMinValueToggle,
+    selectSettingsModeToggle
+} from "../../model/counterToggle/counterToggleSelectors.ts";
+import {changeSettingsModeAC, setCountValueToggleAC} from "../../model/counterToggle/counterToggle-reducer.ts";
 
-type Props = {
-    count: number
-    maxValue: number
-    minValue: number
-    setValuesOnClick: (payload: { key: 'maxValue' | 'minValue' | 'count', num: number }) => void
-    initialSettingsMode: boolean
-};
 
+export const Counter_toggle = () => {
 
-export const Counter_toggle = ({count, maxValue, minValue, setValuesOnClick, initialSettingsMode}: Props) => {
+    const minValue = useAppSelector(selectMinValueToggle);
+    const maxValue = useAppSelector(selectMaxValueToggle);
+    let count = useAppSelector(selectCountToggle);
+    const settingsMode = useAppSelector(selectSettingsModeToggle)
+    const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        localStorage.setItem('Count toggle: ', JSON.stringify(count));
-    }, [count]);
 
     const onClickIncHandler = () => {
         if (count < maxValue) {
-            setValuesOnClick({key: 'count', num: ++count})
+            dispatch(setCountValueToggleAC({count: ++count}))
         }
     }
     const onClickResetHandler = () => {
-        if (count > minValue) setValuesOnClick({key: 'count', num: minValue})
+        if (count > minValue){
+            dispatch(setCountValueToggleAC({count: minValue}))
+        }
     }
-
     const onClickSetHandler = () => {
-        setSettingMode(true)
+        dispatch(changeSettingsModeAC({isSet: true}))
     }
-
-    const [settingsMode, setSettingMode] = useState(initialSettingsMode)
-
-    const setValuesOnClickHandler = (payload: { key: KeyValueType, num: number }) => {
-        const {key, num} = payload
-        setValuesOnClick({key, num})
-    }
-
-    useEffect(() => {
-        localStorage.setItem('settingsMode', JSON.stringify(settingsMode))
-    }, [settingsMode]);
 
     const IsButtonIncDisabled = count === maxValue
     const IsButtonResetDisabled = count === minValue
@@ -49,16 +40,10 @@ export const Counter_toggle = ({count, maxValue, minValue, setValuesOnClick, ini
 
     return (
         settingsMode ?
-            <Settings_toggle
-                minValue={minValue}
-                maxValue={maxValue}
-                setValuesOnClick={setValuesOnClickHandler}
-                setSettingMode={setSettingMode}/>
+            <Settings_toggle/>
             :
             <div className={'table'}>
-                <Screen_toggle
-                    count={count}
-                    maxValue={maxValue}/>
+                <Screen_toggle/>
                 <progress
                     className={'progress'}
                     max={maxValue}

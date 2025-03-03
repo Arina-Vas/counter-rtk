@@ -1,6 +1,6 @@
 import {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
-import {changeEditModeAC} from "../model/count-reducer.ts";
+import {changeEditModeAC} from "../model/counter/counter-reducer.ts";
 
 type Props = {
     title: string

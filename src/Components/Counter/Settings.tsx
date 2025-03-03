@@ -8,9 +8,9 @@ import {
     changeMaxValueAC,
     changeMinValueAC,
     setCountValueAC
-} from "../../model/count-reducer.ts";
+} from "../../model/counter/counter-reducer.ts";
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectEditMode, selectMaxValue, selectMinValue} from "../../model/counterSelectors.ts";
+import {selectEditMode, selectMaxValue, selectMinValue} from "../../model/counter/counterSelectors.ts";
 
 
 type ErrorType = 'error' | 'errorMax' | 'errorMin' | ''

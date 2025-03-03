@@ -1,14 +1,14 @@
 import {Screen} from "./Screen.tsx";
 import {Button} from "../Button.tsx";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
-import {setCountValueAC} from "../../model/count-reducer.ts";
+import {setCountValueAC} from "../../model/counter/counter-reducer.ts";
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
 import {
     selectCount, selectEditMode,
     selectErrorMode,
     selectMaxValue,
     selectMinValue
-} from "../../model/counterSelectors.ts";
+} from "../../model/counter/counterSelectors.ts";
 
 export const Calculator = () => {
     const dispatch = useAppDispatch();
