@@ -1,4 +1,4 @@
-import {RootState} from "../../app/store.ts";
+import {RootState} from "@/app/store.ts";
 
 
 export const selectCountToggle = (state:RootState) => state.counterToggle.count
