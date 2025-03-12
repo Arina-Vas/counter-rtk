@@ -1,4 +1,4 @@
-import s from '../app/App.module.css'
+import s from './Button.module.css'
 
 type ButtonType = {
     name: string,

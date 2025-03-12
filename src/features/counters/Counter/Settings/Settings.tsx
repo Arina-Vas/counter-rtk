@@ -1,17 +1,18 @@
-import {Button} from "../Button.tsx";
-import s from '../../app/App.module.css'
-import {ValueForm} from "../ValueForm.tsx";
+import s from '../../Counters.module.css'
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {selectEditMode, selectMaxValue, selectMinValue} from "@/features/counters/model/counterSelectors.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {useEffect, useState} from "react";
-import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
 import {
     changeEditModeAC,
     changeErrorModeAC,
     changeMaxValueAC,
     changeMinValueAC,
     setCountValueAC
-} from "../../model/counter/counter-reducer.ts";
-import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectEditMode, selectMaxValue, selectMinValue} from "../../model/counter/counterSelectors.ts";
+} from "@/features/counters/model/counter-reducer.ts";
+import {ValueForm} from "@/common/components/ValueForm/ValueForm.tsx";
+import {Button} from "@/common/components/Button/Button.tsx";
+import {saveState} from "@/app/localStorage.ts";
 
 
 type ErrorType = 'error' | 'errorMax' | 'errorMin' | ''
@@ -31,20 +32,17 @@ export const Settings = () => {
     const [newMaxValue, setNewMaxValue] = useState<number>(maxValue)
 
     useEffect(() => {
-        const regex = /\./
-        switch (true) {
-            case ((newMinValue < 0 && newMaxValue < 0) || (newMaxValue <= newMinValue)):
-                setErrorType('error');
-                break;
-            case (newMaxValue < 0 || regex.test(String(newMaxValue))):
-                setErrorType('errorMax');
-                break;
-            case (newMinValue < 0 || regex.test(String(newMinValue))):
-                setErrorType('errorMin');
-                break;
-            default:
-                setErrorType('');
-                break;
+        if ((newMinValue < 0 && newMaxValue < 0)) {
+            setErrorType('error');
+        }
+        else if (newMaxValue < 0) {
+            setErrorType('errorMax');
+        }
+        else if (newMinValue < 0 ) {
+            setErrorType('errorMin');
+        }
+        else {
+            setErrorType('');
         }
     }, [newMinValue, newMaxValue])
 
@@ -67,16 +65,14 @@ export const Settings = () => {
         dispatch(changeMinValueAC({minValue: newMinValue}))
         dispatch(setCountValueAC({count: newMinValue}))
         dispatch(changeEditModeAC({editMode: false}))
+        saveState<string>('maxValue', String(newMaxValue))
+
     }
 
     const buttonIsDisabled = errorType !== '' || !editMode
 
-    const getClassName = (valueType: 'Min' | 'Max') => {
-        return (errorType === `error${valueType}` || errorType === 'error') ? s.errorBlock : '';
-    }
-
-    const classNameMax = getClassName('Max')
-    const classNameMin = getClassName('Min')
+    const classNameMax = (errorType === `errorMax` || errorType === 'error') ? s.errorBlock : ''
+    const classNameMin = (errorType === `errorMin` || errorType === 'error') ? s.errorBlock : ''
 
     return (
         <div className={s.table}>

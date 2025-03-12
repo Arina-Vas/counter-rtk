@@ -1,15 +1,18 @@
-import {Button} from "../Button.tsx";
-import s from '../../app/App.module.css';
-import {Settings_toggle} from "./Settings_toggle.tsx";
-import {Screen_toggle} from "./Screen_toggle.tsx";
-import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import s from '../Counters.module.css'
+import {Settings_toggle} from "./settings_toggle/Settings_toggle.tsx";
+import {Screen_toggle} from "./screen_toggle/Screen_toggle.tsx";
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {
     selectCountToggle,
-    selectMaxValueToggle, selectMinValueToggle,
-    selectSettingsModeToggle
-} from "../../model/counterToggle/counterToggleSelectors.ts";
-import {changeSettingsModeAC, setCountValueToggleAC} from "../../model/counterToggle/counterToggle-reducer.ts";
+    selectMaxValueToggle,
+    selectMinValueToggle, selectSettingsModeToggle
+} from "@/features/counters/model/counterToggleSelectors.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {changeSettingsModeAC, setCountValueToggleAC} from "@/features/counters/model/counterToggle-reducer.ts";
+import {Button} from "@/common/components/Button/Button.tsx";
+
+
+
 
 
 export const Counter_toggle = () => {

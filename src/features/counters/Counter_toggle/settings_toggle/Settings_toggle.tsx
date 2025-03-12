@@ -1,15 +1,15 @@
-import {Button} from "../Button.tsx";
-import s from '../../app/App.module.css';
-import {ValueForm} from "../ValueForm.tsx";
+import s from '../../Counters.module.css'
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {selectMaxValueToggle, selectMinValueToggle} from "@/features/counters/model/counterToggleSelectors.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {useEffect, useState} from "react";
-import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
-import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectMaxValueToggle, selectMinValueToggle} from "../../model/counterToggle/counterToggleSelectors.ts";
 import {
-    changeMaxValueToggleAC, changeMinValueToggleAC,
-    changeSettingsModeAC,
+    changeMaxValueToggleAC,
+    changeMinValueToggleAC, changeSettingsModeAC,
     setCountValueToggleAC
-} from "../../model/counterToggle/counterToggle-reducer.ts";
+} from "@/features/counters/model/counterToggle-reducer.ts";
+import {ValueForm} from "@/common/components/ValueForm/ValueForm.tsx";
+import {Button} from "@/common/components/Button/Button.tsx";
 
 type ErrorType = 'error' | 'errorMax' | 'errorMin' | ''
 

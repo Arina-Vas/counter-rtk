@@ -1,6 +1,7 @@
 import {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
-import {changeEditModeAC} from "../model/counter/counter-reducer.ts";
+import {changeEditModeAC} from "@/features/counters/model/counter-reducer.ts";
+
 
 type Props = {
     title: string
@@ -8,14 +9,15 @@ type Props = {
     value: number
     className: string
 };
-export const ValueForm = ({title,onChange,value,className}: Props) => {
+export const ValueForm = ({title, onChange, value, className}: Props) => {
 
     const dispatch = useDispatch()
 
-    const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
-        e.target.value = e.target.value.replace(/^0/, '')
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.target.value = e.target.value.replace(/^0+|\D+/g, '')
         onChange(+e.target.value)
         dispatch(changeEditModeAC({editMode:true}))
+
     }
 
 
@@ -25,7 +27,7 @@ export const ValueForm = ({title,onChange,value,className}: Props) => {
                 <input className={className}
                        value={value}
                        type={'number'}
-                       onChange={onChangeHandler} />
+                       onChange={onChangeHandler}/>
             </label>
         </div>
     );

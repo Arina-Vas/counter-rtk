@@ -1,9 +1,15 @@
-import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectCount, selectEditMode, selectErrorMode, selectMaxValue} from "../../model/counter/counterSelectors.ts";
-import s from '../../app/App.module.css'
+import s from '../../../Counters.module.css'
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {
+    selectCount,
+    selectEditMode,
+    selectErrorMode,
+    selectMaxValue
+} from "@/features/counters/model/counterSelectors.ts";
+
 
 export const Screen = () => {
-    const maxValue = useAppSelector(selectMaxValue);
+    const maxValue =  useAppSelector(selectMaxValue);
     const count = useAppSelector(selectCount);
     const errorMode = useAppSelector(selectErrorMode);
     const editMode = useAppSelector(selectEditMode);

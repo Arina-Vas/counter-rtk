@@ -1,7 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {counterReducer} from "../model/counter/counter-reducer.ts";
-import {counterToggleReducer} from "../model/counterToggle/counterToggle-reducer.ts";
+import {counterReducer} from "@/features/counters/model/counter-reducer.ts";
+import {counterToggleReducer} from "@/features/counters/model/counterToggle-reducer.ts";
 
+
+// const persistedState = loadState();
 
 // объединение reducer'ов с помощью combineReducers
 const rootReducer = combineReducers({
@@ -12,7 +14,15 @@ const rootReducer = combineReducers({
 // создание store
 export const store = configureStore({
     reducer: rootReducer,
+    // preloadedState: persistedState
 })
+
+// store.subscribe(() => {
+//     saveState({
+//        counter: store.getState().counter,
+//         counterToggle: store.getState().counterToggle
+//     });
+// });
 
 // автоматическое определение типа всего объекта состояния
 export type RootState = ReturnType<typeof store.getState>

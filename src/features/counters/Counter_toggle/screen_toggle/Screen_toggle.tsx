@@ -1,6 +1,6 @@
-import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectCountToggle, selectMaxValueToggle} from "../../model/counterToggle/counterToggleSelectors.ts";
-import s from '../../app/App.module.css';
+import s from '../../Counters.module.css'
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {selectCountToggle, selectMaxValueToggle} from "@/features/counters/model/counterToggleSelectors.ts";
 
 export const Screen_toggle = () => {
 

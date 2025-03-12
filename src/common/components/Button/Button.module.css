@@ -1,0 +1,27 @@
+.button {
+    text-align: center;
+    padding: 0;
+    width: 150px;
+    background-color: #41b2aa;
+    color: white;
+    border-radius: 10px;
+    font-size: 40px;
+    border: none;
+
+    transition: ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+.button .active:hover {
+    border: none;
+    transform: scale(1.1);
+}
+
+.button:focus, .button:focus-visible {
+    outline: 3px auto #126560;
+}
+
+.dis {
+    background-color: #777777;
+    cursor: not-allowed;
+}

@@ -1,6 +1,6 @@
-import {Calculator} from "./Calculator.tsx";
-import {Settings} from "./Settings.tsx";
-import s from '../../app/App.module.css'
+import {Calculator} from "./Calculator/Calculator.tsx";
+import {Settings} from "./Settings/Settings.tsx";
+import s from './Counter.module.css'
 
 
 export const Counter = () => {
