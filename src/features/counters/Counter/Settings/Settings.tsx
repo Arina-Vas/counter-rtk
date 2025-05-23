@@ -1,21 +1,25 @@
 import s from '../../Counters.module.css'
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectEditMode, selectMaxValue, selectMinValue} from "@/features/counters/model/counterSelectors.ts";
+import {
+    selectEditMode,
+    selectError,
+    selectMaxValue,
+    selectMinValue
+} from "@/features/counters/model/counterSelectors.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {useEffect, useState} from "react";
 import {
     changeEditModeAC,
     changeErrorModeAC,
     changeMaxValueAC,
-    changeMinValueAC,
-    setCountValueAC
+    changeMinValueAC, ErrorType,
+    setCountValueAC, setErrorAC
 } from "@/features/counters/model/counter-reducer.ts";
 import {ValueForm} from "@/common/components/ValueForm/ValueForm.tsx";
 import {Button} from "@/common/components/Button/Button.tsx";
 import {saveState} from "@/app/localStorage.ts";
 
 
-type ErrorType = 'error' | 'errorMax' | 'errorMin' | ''
 
 
 export const Settings = () => {
@@ -25,35 +29,30 @@ export const Settings = () => {
     const maxValue = useAppSelector(selectMaxValue);
     const editMode = useAppSelector(selectEditMode)
     const dispatch = useAppDispatch();
-
-
-    const [errorType, setErrorType] = useState<ErrorType>('')
+    const error = useAppSelector(selectError)
     const [newMinValue, setNewMinValue] = useState<number>(minValue)
     const [newMaxValue, setNewMaxValue] = useState<number>(maxValue)
 
     useEffect(() => {
-        if ((newMinValue < 0 && newMaxValue < 0)) {
-            setErrorType('error');
+        let errorType: ErrorType = ''
+        if (newMinValue >= newMaxValue) {
+            errorType='error'
+        } else if (newMaxValue < 0) {
+            errorType='errorMax'
+        } else if (newMinValue < 0) {
+            errorType='errorMin'
         }
-        else if (newMaxValue < 0) {
-            setErrorType('errorMax');
-        }
-        else if (newMinValue < 0 ) {
-            setErrorType('errorMin');
-        }
-        else {
-            setErrorType('');
-        }
-    }, [newMinValue, newMaxValue])
-
+        dispatch(setErrorAC({error: errorType}))
+    }, [ newMinValue, newMaxValue])
     useEffect(() => {
         dispatch(changeErrorModeAC({
-            error: errorType !== ''
+            error: error !== ''
         }))
-    }, [dispatch, errorType]);
+    }, [dispatch, error]);
 
 
     const onChangeMaxValueHandler = (num: number) => {
+        console.log('change')
         setNewMaxValue(num)
     }
 
@@ -66,25 +65,24 @@ export const Settings = () => {
         dispatch(setCountValueAC({count: newMinValue}))
         dispatch(changeEditModeAC({editMode: false}))
         saveState<string>('maxValue', String(newMaxValue))
-
     }
 
-    const buttonIsDisabled = errorType !== '' || !editMode
+    const buttonIsDisabled = error !== '' || !editMode
 
-    const classNameMax = (errorType === `errorMax` || errorType === 'error') ? s.errorBlock : ''
-    const classNameMin = (errorType === `errorMin` || errorType === 'error') ? s.errorBlock : ''
+    const isErrorMax = error === `errorMax` || error === 'error'
+    const isErrorMin = error === `errorMin` || error === 'error'
 
     return (
         <div className={s.table}>
             <div className={s.screen}>
                 <ValueForm
-                    className={classNameMax}
+                    isError={isErrorMax}
                     value={newMaxValue}
                     title={'Max value: '}
                     onChange={onChangeMaxValueHandler}
                 />
                 <ValueForm
-                    className={classNameMin}
+                    isError={isErrorMin}
                     value={newMinValue}
                     title={'Min value: '}
                     onChange={onChangeMinValueHandler}

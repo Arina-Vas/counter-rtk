@@ -2,8 +2,8 @@
     text-align: center;
     padding: 0;
     width: 150px;
-    background-color: #41b2aa;
-    color: white;
+    background-color: #EC9704;
+    color:  #f5db8b;
     border-radius: 10px;
     font-size: 40px;
     border: none;
@@ -12,16 +12,17 @@
     cursor: pointer;
 }
 
-.button .active:hover {
+.button.active:hover {
     border: none;
     transform: scale(1.1);
 }
 
 .button:focus, .button:focus-visible {
-    outline: 3px auto #126560;
+    outline: 3px auto #9C4A1A;
 }
 
 .dis {
-    background-color: #777777;
+    color: rgba(255, 220, 170, 0.4);
+    background-color: #A78B71;
     cursor: not-allowed;
 }

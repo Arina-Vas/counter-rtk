@@ -11,4 +11,4 @@ export const selectErrorMode = (state:RootState) => state.counter.errorMode
 
 export const selectEditMode = (state:RootState) => state.counter.editMode
 
-
+export const selectError = (state:RootState) => state.counter.error

@@ -43,30 +43,35 @@ export const Counter_toggle = () => {
 
 
     return (
-        settingsMode ?
-            <Settings_toggle/>
-            :
-            <div className={s.table}>
-                <Screen_toggle/>
-                <progress
-                    className={s.progress}
-                    max={maxValue}
-                    value={count}>
+        <div className={s.counter}>
+            {
+                settingsMode ?
+                    <Settings_toggle/>
+                    :
+                    <div className={s.table}>
+                        <Screen_toggle/>
+                        <progress
+                            className={s.progress}
+                            max={maxValue}
+                            value={count}>
 
-                </progress>
-                <div className={s.buttons}>
-                    <Button
-                        name={'inc'}
-                        disabled={IsButtonIncDisabled}
-                        onclick={onClickIncHandler}/>
-                    <Button
-                        name={'reset'}
-                        disabled={IsButtonResetDisabled}
-                        onclick={onClickResetHandler}/>
-                    <Button
-                        name={'set'}
-                        onclick={onClickSetHandler}/>
-                </div>
-            </div>
+                        </progress>
+                        <div className={s.buttons}>
+                            <Button
+                                name={'inc'}
+                                disabled={IsButtonIncDisabled}
+                                onclick={onClickIncHandler}/>
+                            <Button
+                                name={'reset'}
+                                disabled={IsButtonResetDisabled}
+                                onclick={onClickResetHandler}/>
+                            <Button
+                                name={'set'}
+                                onclick={onClickSetHandler}/>
+                        </div>
+                    </div>
+            }
+        </div>
+
     );
 };

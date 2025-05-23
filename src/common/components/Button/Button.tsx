@@ -7,6 +7,7 @@ type ButtonType = {
 }
 
 export const Button = ({name, disabled, onclick}: ButtonType) => {
+
     const className = `${s.button} ${disabled ? s.dis : s.active}`
 
     return (

@@ -19,7 +19,7 @@ export function saveState<T> (key: string, state:T){
     } catch {
         // ignore write errors
     }
-};
+}
 
 export function restoreState<T>(key: string, defaultState: T) {
     let state = defaultState

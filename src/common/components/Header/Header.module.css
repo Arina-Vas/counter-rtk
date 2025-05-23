@@ -13,15 +13,15 @@
     font-weight: 600;
     font-size: 32px;
     text-decoration: none;
-    color: white;
+    color: #F7C815;
 }
 
 .nav a:hover{
-    color: #41b2aa;
+    color: #EC9704;
 }
 
 .nav a.active {
     text-decoration: underline;
     text-decoration-skip-ink: none;
-    color: #2ce7d9;
+    color: #EC9704;
 }

@@ -1,0 +1,42 @@
+.input {
+    font-family: "Comic Sans MS", sans-serif;
+    background-color: #f5db8b;
+    color: #583E26;
+    font-size: 13px;
+    border: none;
+    /*border-radius: 5px;*/
+    outline: none;
+    text-align: center;
+    width: 70px;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.arrow {
+    cursor: pointer;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 13px;
+    background-color: #EC9704;
+    border: none;
+}
+
+.errorBlock {
+    composes: input;
+    color: #ffcdb1;
+    background-color: #9a3016;
+    /*border-color: #9a2929;*/
+}
