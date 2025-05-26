@@ -13,7 +13,7 @@ const initialState:StateType = {
     count: 0,
     minValue: 0,
     maxValue: 5,
-    editMode: false,
+    editMode: true,
     error: ''
 }
 
