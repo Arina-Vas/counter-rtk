@@ -1,17 +1,27 @@
 import {createAction, createReducer} from "@reduxjs/toolkit";
+import {ErrorType} from "@/features/counters/model/counter/counter-reducer.ts";
 
-const initialStateToggle = {
+type StateType = {
+    count: number
+    minValue: number
+    maxValue: number
+    settingsMode: boolean
+    error: ErrorType
+}
+
+const initialStateToggle: StateType = {
     count: 0,
     minValue: 2,
     maxValue: 6,
-    settingsMode: false
+    settingsMode: true,
+    error: ''
 }
 
 export const changeMaxValueToggleAC = createAction<{ maxValue: number }>('counterToggle/changeMaxValueToggle')
 export const changeMinValueToggleAC = createAction<{ minValue: number }>('counterToggle/changeMinValueToggle')
 export const setCountValueToggleAC = createAction<{ count: number }>('counterToggle/setCountValueToggle')
-export const changeSettingsModeAC = createAction<{ isSet: boolean }>('counterToggle/changeSettingsMode')
-
+export const changeSettingsModeToggleAC = createAction<{ isSet: boolean }>('counterToggle/changeSettingsMode')
+export const setErrorToggleAC = createAction<{ error: ErrorType }>('counterToggle/setErrorToggleAC')
 
 export const counterToggleReducer = createReducer(initialStateToggle, (builder) => {
     builder
@@ -24,8 +34,11 @@ export const counterToggleReducer = createReducer(initialStateToggle, (builder) 
         .addCase(setCountValueToggleAC, (state, action) => {
             state.count = action.payload.count
         })
-        .addCase(changeSettingsModeAC, (state, action) => {
+        .addCase(changeSettingsModeToggleAC, (state, action) => {
             state.settingsMode = action.payload.isSet
+        })
+        .addCase(setErrorToggleAC, (state, action) => {
+            state.error = action.payload.error
         })
 
 })

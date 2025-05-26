@@ -1,7 +1,8 @@
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Counter} from "@/features/counters/Counter/Сounter.tsx";
-import {Counter_toggle} from "@/features/counters/Counter_toggle/Counter_toggle.tsx";
+
 import {Error} from "@/common/components/Error/Error.tsx";
+import {Counter} from "@/features/counters/ui/Counter/Сounter.tsx";
+import {Counter_toggle} from "@/features/counters/ui/Counter_toggle/Counter_toggle.tsx";
 
 
 

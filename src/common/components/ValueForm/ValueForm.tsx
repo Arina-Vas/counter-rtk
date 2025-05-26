@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import {changeEditModeAC} from "@/features/counters/model/counter-reducer.ts";
+import {changeEditModeAC} from "@/features/counters/model/counter/counter-reducer.ts";
 import s from './ValueForm.module.css'
 
 

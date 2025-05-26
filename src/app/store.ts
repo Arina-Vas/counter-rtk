@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {counterReducer} from "@/features/counters/model/counter-reducer.ts";
-import {counterToggleReducer} from "@/features/counters/model/counterToggle-reducer.ts";
+import {counterReducer} from "@/features/counters/model/counter/counter-reducer.ts";
+import {counterToggleReducer} from "@/features/counters/model/counterToggle/counterToggle-reducer.ts";
 
 
 // const persistedState = loadState();

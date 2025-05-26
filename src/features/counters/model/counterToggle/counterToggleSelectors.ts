@@ -7,4 +7,6 @@ export const selectMinValueToggle = (state:RootState) => state.counterToggle.min
 
 export const selectMaxValueToggle = (state:RootState) => state.counterToggle.maxValue
 
+export const selectErrorToggle = (state:RootState) => state.counterToggle.error
+
 export const selectSettingsModeToggle = (state:RootState) => state.counterToggle.settingsMode

@@ -1,4 +1,4 @@
-import s from '../Counters.module.css'
+import s from '../../styles/Counters.module.css'
 import {Settings_toggle} from "./settings_toggle/Settings_toggle.tsx";
 import {Screen_toggle} from "./screen_toggle/Screen_toggle.tsx";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
@@ -6,9 +6,9 @@ import {
     selectCountToggle,
     selectMaxValueToggle,
     selectMinValueToggle, selectSettingsModeToggle
-} from "@/features/counters/model/counterToggleSelectors.ts";
+} from "@/features/counters/model/counterToggle/counterToggleSelectors.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import {changeSettingsModeAC, setCountValueToggleAC} from "@/features/counters/model/counterToggle-reducer.ts";
+import {changeSettingsModeToggleAC, setCountValueToggleAC} from "@/features/counters/model/counterToggle/counterToggle-reducer.ts";
 import {Button} from "@/common/components/Button/Button.tsx";
 
 
@@ -35,7 +35,7 @@ export const Counter_toggle = () => {
         }
     }
     const onClickSetHandler = () => {
-        dispatch(changeSettingsModeAC({isSet: true}))
+        dispatch(changeSettingsModeToggleAC({isSet: true}))
     }
 
     const IsButtonIncDisabled = count === maxValue

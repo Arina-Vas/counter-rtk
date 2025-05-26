@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     gap: 50px;
+    flex-wrap: wrap;
 }
 
 .table {
@@ -36,12 +37,10 @@
 .max {
     font-size: 30px;
 }
+
 .error {
     font-size: 30px;
     color: #B41004;
-}
-.errorBlock {
-    background-color: #B41004;
 }
 
 .buttons {

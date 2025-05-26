@@ -1,20 +1,19 @@
-import s from '../../Counters.module.css'
+import s from '@/features/counters/styles/Counters.module.css'
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {
     selectEditMode,
     selectError,
     selectMaxValue,
     selectMinValue
-} from "@/features/counters/model/counterSelectors.ts";
+} from "@/features/counters/model/counter/counterSelectors.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {useEffect, useState} from "react";
 import {
     changeEditModeAC,
-    changeErrorModeAC,
     changeMaxValueAC,
     changeMinValueAC, ErrorType,
     setCountValueAC, setErrorAC
-} from "@/features/counters/model/counter-reducer.ts";
+} from "@/features/counters/model/counter/counter-reducer.ts";
 import {ValueForm} from "@/common/components/ValueForm/ValueForm.tsx";
 import {Button} from "@/common/components/Button/Button.tsx";
 import {saveState} from "@/app/localStorage.ts";
@@ -23,8 +22,6 @@ import {saveState} from "@/app/localStorage.ts";
 
 
 export const Settings = () => {
-
-
     const minValue = useAppSelector(selectMinValue);
     const maxValue = useAppSelector(selectMaxValue);
     const editMode = useAppSelector(selectEditMode)
@@ -44,11 +41,7 @@ export const Settings = () => {
         }
         dispatch(setErrorAC({error: errorType}))
     }, [ newMinValue, newMaxValue])
-    useEffect(() => {
-        dispatch(changeErrorModeAC({
-            error: error !== ''
-        }))
-    }, [dispatch, error]);
+
 
 
     const onChangeMaxValueHandler = (num: number) => {
